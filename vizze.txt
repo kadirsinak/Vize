@@ -1,0 +1,76 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class UyeYonetimProgrami {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int secim;
+        
+        do {
+            // Menüyü göster
+            System.out.println("1- Elit üye ekleme");
+            System.out.println("2- Genel Üye ekleme");
+            System.out.println("3- Mail Gönderme");
+            System.out.print("Seçiminiz: ");
+            secim = scanner.nextInt();
+            
+            switch (secim) {
+                case 1:
+                    // Elit üye ekleme işlemi
+                    String isim, soyisim, email;
+                    System.out.print("İsim: ");
+                    isim = scanner.next();
+                    System.out.print("Soyisim: ");
+                    soyisim = scanner.next();
+                    System.out.print("E-posta: ");
+                    email = scanner.next();
+                    
+                    // Üye bilgilerini dosyaya kaydet
+                    kaydet("elit_uyeler.txt", isim + "\t" + soyisim + "\t" + email);
+                    System.out.println("Elit üye kaydedildi.");
+                    break;
+                
+                case 2:
+                    // Genel üye ekleme işlemi
+                    System.out.print("İsim: ");
+                    isim = scanner.next();
+                    System.out.print("Soyisim: ");
+                    soyisim = scanner.next();
+                    System.out.print("E-posta: ");
+                    email = scanner.next();
+                    
+                    // Üye bilgilerini dosyaya kaydet
+                    kaydet("genel_uyeler.txt", isim + "\t" + soyisim + "\t" + email);
+                    System.out.println("Genel üye kaydedildi.");
+                    break;
+                
+                case 3:
+                    // Mail gönderme işlemi
+                    int mailSecim;
+                    String mailMetni;
+                    System.out.println("1- Elit üyelere mail");
+                    System.out.println("2- Genel üyelere mail");
+                    System.out.println("3- Tüm üyelere mail");
+                    System.out.print("Seçiminiz: ");
+                    mailSecim = scanner.nextInt();
+                    
+                    System.out.print("Mail metni: ");
+                    mailMetni = scanner.next();
+                    
+                    switch (mailSecim) {
+                        case 1:
+                            // Elit üyelere mail gönder
+                            ArrayList<String> elitUyeler = oku("elit_uyeler.txt");
+                            for (String uye : elitUyeler) {
+                                String[] bilgiler = uye.split("\t");
+                                gonder(bilgiler[2], mailMetni);
+                            }
+                            System.out.println("Elit üyelere mail gönderildi.");
+                            break;
+                        
+                        case 2:
+                            // Genel üyelere mail gönder
+    ArrayList<String> genelUyeler = oku("genel_uyeler.txt"); 
